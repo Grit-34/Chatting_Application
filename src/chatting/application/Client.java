@@ -11,6 +11,7 @@ public class Client extends JFrame implements ActionListener {
     JTextField t1;
     JButton b1;
     static JPanel a1;
+    static JFrame f1=new JFrame();
     static Box vertical=Box.createVerticalBox();
     static Socket s;
     static DataInputStream din;
@@ -23,7 +24,7 @@ public class Client extends JFrame implements ActionListener {
         p1.setLayout(null);
         p1.setBackground(new Color(7,94,84));
         p1.setBounds(0,0,400,50);
-        add(p1);
+        f1.add(p1);
 
         //div:Configuration of Images and text at header
         ImageIcon i1=new ImageIcon(ClassLoader.getSystemResource("chatting/application/images/arrow.png"));
@@ -97,7 +98,7 @@ public class Client extends JFrame implements ActionListener {
         a1=new JPanel();
         a1.setBounds(5,55,390,450);
         a1.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
-        add(a1);
+        f1.add(a1);
         //div:body-ends-----------
 
 
@@ -106,7 +107,7 @@ public class Client extends JFrame implements ActionListener {
         t1=new JTextField();
         t1.setBounds(5,510,300,30);
         t1.setFont(new Font("SAN_SERIF", Font.PLAIN,16));
-        add(t1);
+        f1.add(t1);
         t1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
@@ -131,18 +132,18 @@ public class Client extends JFrame implements ActionListener {
         b1.setForeground(Color.WHITE);
         b1.setFont(new Font("SAN_SERIF",Font.PLAIN,12));
         b1.addActionListener(this);
-        add(b1);
+        f1.add(b1);
         //div-ends------------------
         
 
 
         //div:frame configuration
-        getContentPane().setBackground(Color.WHITE);
-        setLayout(null);
-        setSize(400,550);
-        setLocation(900,150);
-        setUndecorated(true);
-        setVisible(true);
+        f1.getContentPane().setBackground(Color.WHITE);
+        f1.setLayout(null);
+        f1.setSize(400,550);
+        f1.setLocation(900,150);
+        f1.setUndecorated(true);
+        f1.setVisible(true);
         //div-ends-------------------
     }
 
@@ -153,9 +154,10 @@ public class Client extends JFrame implements ActionListener {
             JPanel p2=formatLabel(out);
             //a1.add(p2);
             a1.setLayout(new BorderLayout());
-            JPanel right=new JPanel(new BorderLayput());
+            JPanel right=new JPanel(new BorderLayout());
             right.add(p2,BorderLayout.LINE_END);
             vertical.add(right);
+	    vertical.add(Box.createVerticalStrut(15));
             a1.add(vertical,BorderLayout.PAGE_START);
             //t1.setText("");
             dout.writeUTF(out);
