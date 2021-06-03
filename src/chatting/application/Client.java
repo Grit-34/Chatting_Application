@@ -1,5 +1,7 @@
 package chatting.application;
 import javax.swing.*;
+import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
@@ -151,6 +153,7 @@ public class Client extends JFrame implements ActionListener {
     {
         try {
             String out = t1.getText();
+	    sendText(out);
             JPanel p2=formatLabel(out);
             //a1.add(p2);
             a1.setLayout(new BorderLayout());
@@ -165,6 +168,16 @@ public class Client extends JFrame implements ActionListener {
         }catch(Exception e)
         {
             System.out.println(e);
+        }
+    }
+    public void sendText(String message) throws FileNotFoundException
+    {
+        try(FileWriter f=new FileWriter("chat.txt",true);
+            PrintWriter p= new PrintWriter(new BufferedWriter(f));){
+            p.println("Person B:" +message);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
     }
     public static JPanel formatLabel(String out){
