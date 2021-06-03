@@ -14,6 +14,7 @@ public class Server extends JFrame implements ActionListener {
     static Socket s;
     static DataInputStream din;
     static DataOutputStream dout;
+    Boolean typing;
 
     Server()
     {
@@ -79,7 +80,16 @@ public class Server extends JFrame implements ActionListener {
         p1.add(l4);
         //div images and text configuration-ends-----------------
         //div:header-ends--------------
-
+        Timer t=new Timer(1, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(!typing){
+                    l4.setText("Active Now");
+                    //String name=l4.getText();
+                }
+            }
+        });
+        t.setInitialDelay(2000);
 
 
         //div:body
@@ -99,6 +109,24 @@ public class Server extends JFrame implements ActionListener {
         t1.setBounds(5,510,300,30);
         t1.setFont(new Font("SAN_SERIF", Font.PLAIN,16));
         add(t1);
+        
+        t1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ke) {
+                l4.setText("typing...");
+                t.stop();
+
+                typing = true;
+            }
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                typing=false;
+                if(!t.isRunning()){
+                    t.start();
+                }
+            }
+        });
 
         b1=new JButton("Send");
         b1.setBounds(305,510,93,29);
