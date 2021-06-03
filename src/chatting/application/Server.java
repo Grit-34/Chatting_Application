@@ -254,7 +254,6 @@ public class Server extends JFrame implements ActionListener {
             	}
                 
             }
-            
         }catch(Exception e){}
     }    
 }
