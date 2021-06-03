@@ -7,6 +7,8 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import javax.swing.plaf.*;
+import javax.swing.plaf.basic.*;
 import java.text.SimpleDateFormat;
 public class Server extends JFrame implements ActionListener {
     JPanel p1;
@@ -100,11 +102,35 @@ public class Server extends JFrame implements ActionListener {
 
         //div:body
         a1=new JPanel();
-        a1.setBounds(5,55,390,450);
+        //a1.setBounds(5,55,390,450);
         a1.setFont(new Font("SAN_SERIF",Font.PLAIN,16));
-        f1.add(a1);
+        //f1.add(a1);
         //div:body-ends-----------
 
+	//scrollbar-start
+        JScrollPane sp=new JScrollPane(a1);
+        sp.setBounds(5,55,390,450);
+        sp.setBorder(BorderFactory.createEmptyBorder());
+
+        ScrollBarUI ui=new BasicScrollBarUI(){
+            protected JButton createDecreaseButton(int orientation){
+                JButton button=super.createDecreaseButton(orientation);
+                button.setBackground(new Color(7,94,84));
+                button.setForeground(Color.WHITE);
+                this.thumbColor=new Color(7,94,84);
+                return button;
+            }
+            protected JButton createIncreaseButton(int orientation){
+                JButton button=super.createDecreaseButton(orientation);
+                button.setBackground(new Color(7,94,84));
+                button.setForeground(Color.WHITE);
+                this.thumbColor=new Color(7,94,84);
+                return button;
+            }
+        };
+        sp.getVerticalScrollBar().setUI(ui);
+        f1.add(sp);
+        //scrollbar ends
 
 
         //div-footer
