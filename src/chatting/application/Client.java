@@ -21,8 +21,10 @@ public class Client extends JFrame implements ActionListener {
     static DataInputStream din;
     static DataOutputStream dout;
     Boolean typing;
-    Client()
+    URL defaultSound;
+    Client(String url)
     {
+	try{
         //div:header
         p1=new JPanel();
         p1.setLayout(null);
@@ -158,6 +160,7 @@ public class Client extends JFrame implements ActionListener {
         b1.setBackground(new Color(7,94,84));
         b1.setForeground(Color.WHITE);
         b1.setFont(new Font("SAN_SERIF",Font.PLAIN,12));
+	defaultSound = new URL(url);
         b1.addActionListener(this);
         f1.add(b1);
         //div-ends------------------
@@ -172,7 +175,11 @@ public class Client extends JFrame implements ActionListener {
         f1.setUndecorated(true);
         f1.setVisible(true);
         //div-ends-------------------
-    }
+    
+    }catch (Exception ex) {
+            Logger.getLogger(WavPlayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 
     public void actionPerformed(ActionEvent ae)
     {
@@ -187,7 +194,8 @@ public class Client extends JFrame implements ActionListener {
             vertical.add(right);
 	    vertical.add(Box.createVerticalStrut(15));
             a1.add(vertical,BorderLayout.PAGE_START);
-            //t1.setText("");
+	    playSound();
+            t1.setText("");
             dout.writeUTF(out);
             t1.setText("");
         }catch(Exception e)
@@ -195,6 +203,30 @@ public class Client extends JFrame implements ActionListener {
             System.out.println(e);
         }
     }
+	
+    public void playSound()
+   {
+       try {
+
+           AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(defaultSound);
+           try {
+
+
+               Clip clip = AudioSystem.getClip();
+               clip.open(audioInputStream);
+               //clip.start( );
+               clip.loop(0);
+               //clip.start();
+           } catch (LineUnavailableException e) {
+           }
+       }
+       catch(UnsupportedAudioFileException | IOException e)
+       {
+           System.out.println("Error with playing sound.");
+           e.printStackTrace( );
+       }
+   }
+	
     public void sendText(String message) throws FileNotFoundException
     {
         try(FileWriter f=new FileWriter("chat.txt",true);
@@ -226,7 +258,9 @@ public class Client extends JFrame implements ActionListener {
         return p3;
     }
     public static void main(String[] args){
-        new Client().f1.setVisible(true);
+        //new Client().f1.setVisible(true);
+	Client cl = new Client("file:C:/Downloads/pk1.wav");
+        cl.f1.setVisible(true);
         
         try{
             
