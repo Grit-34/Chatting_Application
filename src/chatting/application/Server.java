@@ -23,8 +23,9 @@ public class Server extends JFrame implements ActionListener {
     static DataOutputStream dout;
     Boolean typing;
 
-    Server()
+    Server(String url)
     {
+	try{
         //div:header
 	f1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         p1=new JPanel();
@@ -162,6 +163,7 @@ public class Server extends JFrame implements ActionListener {
         b1.setBackground(new Color(7,94,84));
         b1.setForeground(Color.WHITE);
         b1.setFont(new Font("SAN_SERIF",Font.PLAIN,12));
+	defaultSound = new URL(url);
         b1.addActionListener(this);
         f1.add(b1);
         //div-ends------------------
@@ -176,6 +178,9 @@ public class Server extends JFrame implements ActionListener {
         f1.setUndecorated(true);
         f1.setVisible(true);
         //div-ends-------------------
+    }catch (Exception ex) {
+            Logger.getLogger(WavPlayer.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
 
     public void actionPerformed(ActionEvent ae)
@@ -191,15 +196,41 @@ public class Server extends JFrame implements ActionListener {
             vertical.add(right);
 	    vertical.add(Box.createVerticalStrut(15));
             a1.add(vertical,BorderLayout.PAGE_START);
+	    playSound();
             //t1.setText("");
             dout.writeUTF(out);
             t1.setText("");
+		playSound();
 
         }catch(Exception e)
         {
             System.out.println(e);
         }
     }
+	    
+    public void playSound()
+    {
+       try {
+
+           AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(defaultSound);
+           try {
+
+
+               Clip clip = AudioSystem.getClip();
+               clip.open(audioInputStream);
+               //clip.start( );
+               clip.loop(0);
+               //clip.start();
+           } catch (LineUnavailableException e) {
+           }
+       }
+       catch(UnsupportedAudioFileException | IOException e)
+       {
+           System.out.println("Error with playing sound.");
+           e.printStackTrace( );
+       }
+   }
+
     public void sendText(String message) throws FileNotFoundException
     {
         try(FileWriter f=new FileWriter("chat.txt",true);
@@ -233,7 +264,9 @@ public class Server extends JFrame implements ActionListener {
     }
     
     public static void main(String[] args){
-        new Server().f1.setVisible(true);
+        //new Server().f1.setVisible(true);
+	Server sre = new Server("file:C:/Downloads/pk1.wav");
+        sre.f1.setVisible(true);
         
         String msginput = "";
         try{
