@@ -137,7 +137,7 @@ public class Server extends JFrame implements ActionListener {
         t1=new JTextField();
         t1.setBounds(5,510,300,30);
         t1.setFont(new Font("SAN_SERIF", Font.PLAIN,16));
-        f1.add(t1);
+       f1.add(t1);
         
         t1.addKeyListener(new KeyAdapter() {
             @Override
@@ -254,7 +254,6 @@ public class Server extends JFrame implements ActionListener {
             	}
                 
             }
-            
         }catch(Exception e){}
     }    
 }
