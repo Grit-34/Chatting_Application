@@ -137,7 +137,27 @@ public class Server extends JFrame implements ActionListener {
         t1=new JTextField();
         t1.setBounds(5,510,300,30);
         t1.setFont(new Font("SAN_SERIF", Font.PLAIN,16));
-        f1.add(t1);
+       // f1.add(t1);
+	    
+	    
+	    ImageIcon ii = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/attach.png"));
+            Image ii1 = ii.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);
+            ImageIcon ii2 = new ImageIcon(ii1);
+	JButton jb = new JButton(ii2);
+            jb.setBounds(238, 659, 35, 31);
+            jb.addActionListener(this);
+            jb.setActionCommand("p");
+            jb.setLayout(new BorderLayout());
+
+            ImageIcon ii3 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/cam.png"));
+            Image ii4 = ii3.getImage().getScaledInstance(35, 30, Image.SCALE_DEFAULT);
+            ImageIcon ii5 = new ImageIcon(ii4);
+            JLabel ll1 = new JLabel(ii5);
+	    
+	    f1.add(jb, BorderLayout.WEST);
+            f1.add(ll1, BorderLayout.WEST);
+            f1.add(t1, BorderLayout.CENTER);
+           
         
         t1.addKeyListener(new KeyAdapter() {
             @Override
