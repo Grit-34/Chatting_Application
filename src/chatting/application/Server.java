@@ -1,15 +1,18 @@
 package chatting.application;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.net.*;
-import java.util.*;
 import javax.swing.plaf.*;
 import javax.swing.plaf.basic.*;
 import java.text.SimpleDateFormat;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URL;
+import java.util.Calendar;
 public class Server extends JFrame implements ActionListener {
     JPanel p1;
     JTextField t1;
